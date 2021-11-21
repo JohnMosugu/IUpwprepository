@@ -68,10 +68,7 @@ class CurveAdjusting(TrainData, TestData):
         self.train_model()
         # Test the model
         testresults = self.test_model(self.df_train_results)
-        # Create test result dataframe to be stored in sqlite database
-        #testresults = pd.DataFrame(self.df_test_results, columns=['x', 'y',
-        #                                                          'ideal_fn',
-        #                                                          'deviation'])
+
         # Create and Update Train, Ideal and Test Tables in sqlite
         self.gen_purp_routine.update_database(testresults)
         # Visualize results
@@ -79,13 +76,15 @@ class CurveAdjusting(TrainData, TestData):
 
 
 if __name__ == '__main__':
-    if 4 != len(sys.argv):
+    """if 4 != len(sys.argv):
         print("Usage-----\n curveadjusting.py train_dataset_path "
               "ideal_dataset_path test_dataset_path")
         sys.exit(1)
+    """
+
     try:
-        ls = CurveAdjusting()
+        var_run = CurveAdjusting()
     except Exception as e:
         print(str(e))
     else:
-        ls.start()
+        var_run.start()
