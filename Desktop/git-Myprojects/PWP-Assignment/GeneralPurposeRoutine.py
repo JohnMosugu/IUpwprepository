@@ -1,11 +1,14 @@
 import sqlalchemy as db
-from bokeh.plotting import figure, output_notebook, show
+from bokeh.plotting import figure, output_notebook, output_file,save,show
+
 from DataLoader import DataLoader
 from TestData import TestData
 import pandas as pd
-import sys
+import matplotlib.pyplot as plt
 
 from TrainData import TrainData
+
+
 
 
 class GeneralPurposeRoutine:
@@ -36,21 +39,17 @@ class GeneralPurposeRoutine:
         """
         # Create the sqlite database
         self.engine = db.create_engine(f'sqlite:///pwp-assignment.db')
-        print("Database created ...")
+
         dl = DataLoader.get_instance()
         self.df_train = dl.retrieve_train_data()
         self.df_ideal = dl.retrieve_ideal_data()
-
-
-
-
-
 
     @staticmethod
     def filename(pre):
         return f'{pre}.html'
 
-    def update_database(self,testresults):
+
+    def update_database(self, testresults):
         """
         This method is used to create and update Tables in the sqlite database
         setup during class initialization.
@@ -59,8 +58,8 @@ class GeneralPurposeRoutine:
         :param df_test_results:(pandas.core.frame.DataFrame): Data for Test Table
 
         """
-        df_test_results = pd.DataFrame(testresults, columns = ['x', 'y',' mapped_ideal_fn',' Deviation'])
-        #print(df_test_results.head())
+        df_test_results = pd.DataFrame(testresults, columns=['x', 'y', ' mapped_ideal_fn', ' Deviation'])
+        # print(df_test_results.head())
 
         # Create and update Train Table in sqlite database
         self.df_train.to_sql('Train', con=self.engine, if_exists='replace', index=False)
@@ -88,14 +87,17 @@ class GeneralPurposeRoutine:
                                                                                                              f'Function{col}',
                                 y_axis_label=f'Ideal Function {ideal_fn}')
             create_plt.scatter(self.df_ideal['x'], self.df_ideal[ideal_fn], size=5, color='red', alpha=0.5)
-            create_plt.scatter(self.df_train['x'], self.df_train[col], size=3, color='blue', alpha=.5)
 
-            # plt.scatter(self.training['x'], self.training[col], label=f' Training {col}', alpha=0.6)
-            # plt.scatter(self.ideal['x'], self.ideal[ideal_fn], label=f' Ideal {ideal_fn}', alpha=0.2)
-            # plt.title("Ideal Function vs Training Function")
-            # plt.legend()
-            # plt.show()
+            create_plt.scatter(self.df_train['x'], self.df_train[col], size=3, color='blue', alpha=.8)
+            #
+            print (f'Mapped Ideal: {ideal_fn}')
+            print(f' Train Results : {col}')
 
+            output_file(f'Output_functions{ideal_fn+col}.html',title=f'Ideal Function-{ideal_fn} Vs  Train 'f'Function-{col}')
+            save(create_plt)
             show(create_plt)
+
+
+
 
 

@@ -27,8 +27,10 @@ class DataLoader:
         Static access method to obtain the instance of the singleton class DataLoader.
         :return: DataLoader instance
         """
-        return DataLoader() if DataLoader.__instance is None else \
-            DataLoader.__instance
+        if DataLoader.__instance is None:
+           DataLoader.__instance= DataLoader()
+
+        return DataLoader.__instance
 
     def __init__(self):
         """
@@ -40,6 +42,7 @@ class DataLoader:
             #raise Exception("Only singleton class allowed here!")
         #else:
             #DataLoader.__instance = self
+        
         try:
             self.df_train_data = pd.read_csv(
                 "C:/Users/John Taiye Mosugu/Downloads/Personal stuffs/Data Science Program-IUBH/Python "
@@ -89,5 +92,3 @@ class DataLoader:
         return self.df_test_data
 
 
-# Create the instance of DataLoader
-z = DataLoader()

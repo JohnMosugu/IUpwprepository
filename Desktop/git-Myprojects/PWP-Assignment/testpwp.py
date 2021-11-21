@@ -1,9 +1,10 @@
 import unittest
 from DataLoader import DataLoader
 import pandas as pd
-
+from GeneralPurposeRoutine import GeneralPurposeRoutine
 from TestData import TestData
 from TrainData import TrainData
+
 
 
 class TestDataShapes(unittest.TestCase):
@@ -39,14 +40,41 @@ class TestTrainTestResults(unittest.TestCase):
         self.var_test_results = self.var_test.test_model(self.var_train_results)
 
     def test_TestTrainResults(self):
-        expected_results= {'y1', 'y2', 'y3', 'y4'}
+        expected_results = {'y1', 'y2', 'y3', 'y4'}
         return_results = self.var_train_results.keys()
-        self.assertEqual(return_results,expected_results,"Train Results is not of the  same shape")
+        self.assertEqual(return_results, expected_results, "Train Results is not of the  same shape")
 
     def test_TestResults(self):
         expected_results = 50
         return_results = len(self.var_test_results)
         self.assertEqual(return_results, expected_results, "Test Results has wrong size")
+
+    def test_ReturnResults(self):
+
+        if self.var_train_results is not None:
+            self.expected_results = True
+            return self.expected_results
+        self.assertIsNotNone(self.expected_results, True, "Train results cannot be empty")
+
+        if self.var_test_results is not None:
+            self.expected_results = True
+            return self.expected_results
+        self.assertIsNotNone(self.expected_results, True, "Test results cannot be empty")
+
+
+class TestConnections(unittest.TestCase):
+    conn = None
+
+    def setUp(self):
+        conn = GeneralPurposeRoutine()
+        self.conn = conn.engine.connect()
+
+    def tearDown(self):
+        if self.conn is not None:
+            self.conn.close()
+
+    def test_conn(self):
+        self.assertTrue(self.conn)
 
 
 if __name__ == '__main__':
