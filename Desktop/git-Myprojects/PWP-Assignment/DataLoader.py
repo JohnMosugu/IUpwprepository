@@ -1,7 +1,5 @@
-import sys
-
 import pandas as pd
-
+import sys
 
 class DataLoader:
     """
@@ -42,17 +40,14 @@ class DataLoader:
             #raise Exception("Only singleton class allowed here!")
         #else:
             #DataLoader.__instance = self
-        
+
         try:
             self.df_train_data = pd.read_csv(
-                "C:/Users/John Taiye Mosugu/Downloads/Personal stuffs/Data Science Program-IUBH/Python "
-                "Programming/Written Assignment-Datasets/train.csv")
+                "C:/Users/John Taiye Mosugu/Desktop/git-Myprojects/train.csv")
             self.df_ideal_data = pd.read_csv(
-                "C:/Users/John Taiye Mosugu/Downloads/Personal stuffs/Data Science Program-IUBH/Python "
-                "Programming/Written Assignment-Datasets/ideal.csv")
+                "C:/Users/John Taiye Mosugu/Desktop/git-Myprojects/ideal.csv")
             self.df_test_data = pd.read_csv(
-                "C:/Users/John Taiye Mosugu/Downloads/Personal stuffs/Data Science Program-IUBH/Python "
-                "Programming/Written Assignment-Datasets/test.csv")
+                "C:/Users/John Taiye Mosugu/Desktop/git-Myprojects/test.csv")
         except Exception as e:
             print("Exception while loading dataframe :", e)
             sys.exit(1)

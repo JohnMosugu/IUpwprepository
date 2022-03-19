@@ -1,8 +1,6 @@
 import numpy as np
-
 from DataLoader import DataLoader
 from TrainData import TrainData
-import pathlib
 
 
 class TestData:

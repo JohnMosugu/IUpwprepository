@@ -1,14 +1,9 @@
 import sqlalchemy as db
-from bokeh.plotting import figure, output_notebook, output_file,save,show
-
+from bokeh.plotting import figure, output_notebook, output_file, save, show
 from DataLoader import DataLoader
 from TestData import TestData
 import pandas as pd
-import matplotlib.pyplot as plt
-
 from TrainData import TrainData
-
-
 
 
 class GeneralPurposeRoutine:
@@ -48,7 +43,6 @@ class GeneralPurposeRoutine:
     def filename(pre):
         return f'{pre}.html'
 
-
     def update_database(self, testresults):
         """
         This method is used to create and update Tables in the sqlite database
@@ -73,9 +67,9 @@ class GeneralPurposeRoutine:
     def plots(self, df_train_results):
         """
         This method is used to plot scatter plot for train data and chosen ideal data on single plot so as to check if they fit.
-        :param df_train_results(dict):Only four Best fit results
 
-        """
+        :param df_train_results:(dict): Only four Best fit results
+       """
         self.df_train_results = df_train_results
 
         # For each function in Train dataset
@@ -89,15 +83,11 @@ class GeneralPurposeRoutine:
             create_plt.scatter(self.df_ideal['x'], self.df_ideal[ideal_fn], size=5, color='red', alpha=0.5)
 
             create_plt.scatter(self.df_train['x'], self.df_train[col], size=3, color='blue', alpha=.8)
-            #
-            print (f'Mapped Ideal: {ideal_fn}')
-            print(f' Train Results : {col}')
+            # Display the mapped chosen ideal functions to training functions
+            print(f'Mapped Chosen Ideal Function: {ideal_fn}')
+            print(f'Train Result : {col}')
 
-            output_file(f'Output_functions{ideal_fn+col}.html',title=f'Ideal Function-{ideal_fn} Vs  Train 'f'Function-{col}')
+            output_file(f'Output_functions{ideal_fn + col}.html',
+                        title=f'Ideal Function-{ideal_fn} Vs  Train 'f'Function-{col}')
             save(create_plt)
             show(create_plt)
-
-
-
-
-
