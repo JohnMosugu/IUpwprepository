@@ -15,7 +15,7 @@ class TestData:
     sqrt(2).
 
     Attributes:
-        df_test (pandas.core.frame.DataFrame): Test dataset
+        df_test_data (pandas.core.frame.DataFrame): Test dataset
         df_ideal_data (pandas.core.frame.DataFrame): Ideal dataset
         df_test_results (list): Test results as
             [(x, y, mapped_ideal_function, deviation)]

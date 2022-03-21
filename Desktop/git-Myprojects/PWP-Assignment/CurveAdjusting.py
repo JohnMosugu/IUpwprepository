@@ -4,14 +4,13 @@ from GeneralPurposeRoutine import GeneralPurposeRoutine
 from TestData import TestData
 from TrainData import TrainData
 
-
 class CurveAdjusting(TrainData, TestData):
     """
     This is the main class of the assignment.
     It inherits TestData and TrainData classes and performs the following
 
     1. Train
-    Utlises the training dataset provided to determine the four ideal functions which are the
+    Utilises the training dataset provided to determine the four ideal functions which are the
     best fit out of the fifty provided in ideal dataset. How they minimize
     the sum of all y-deviations squared (Least-Square) is the criteria for
     choosing the ideal functions for the training function.
@@ -59,7 +58,7 @@ class CurveAdjusting(TrainData, TestData):
 
     def start(self):
         """
-        This method is the entry point of algorithm.
+        This method is the entry point of the algorithm.
         Here first model is trained and then tested and finally results are
         stored in database.
         """

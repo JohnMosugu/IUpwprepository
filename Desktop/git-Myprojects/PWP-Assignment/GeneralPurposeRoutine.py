@@ -1,5 +1,5 @@
 import sqlalchemy as db
-from bokeh.plotting import figure, output_notebook, output_file, save, show
+from bokeh.plotting import figure,output_file, save, show,_legends
 from DataLoader import DataLoader
 from TestData import TestData
 import pandas as pd
@@ -24,8 +24,8 @@ class GeneralPurposeRoutine:
 
     Attributes:
     engine (sqlalchemy.engine.base.Engine): Engine Object Reference
-    df_ideal (pandas.core.frame.DataFrame): Ideal dataset
-    df_train (pandas.core.frame.DataFrame): Train dataset
+    df_ideal_data (pandas.core.frame.DataFrame): Ideal dataset
+    df_train_data (pandas.core.frame.DataFrame): Train dataset
     """
 
     def __init__(self):
@@ -52,7 +52,7 @@ class GeneralPurposeRoutine:
         :param df_test_results:(pandas.core.frame.DataFrame): Data for Test Table
 
         """
-        df_test_results = pd.DataFrame(testresults, columns=['x', 'y', ' mapped_ideal_fn', ' Deviation'])
+        df_test_results = pd.DataFrame(testresults, columns=['X(test func)', 'Y(test func)', ' No. of ideal func', 'Y-Deviation'])
         # print(df_test_results.head())
 
         # Create and update Train Table in sqlite database
@@ -80,12 +80,18 @@ class GeneralPurposeRoutine:
             create_plt = figure(title=f'Ideal Function {ideal_fn} Vs  Train 'f'Function {col}', x_axis_label=f'Train '
                                                                                                              f'Function{col}',
                                 y_axis_label=f'Ideal Function {ideal_fn}')
-            create_plt.scatter(self.df_ideal['x'], self.df_ideal[ideal_fn], size=5, color='red', alpha=0.5)
+            create_plt.scatter(self.df_ideal['x'], self.df_ideal[ideal_fn], size=5, color='red', alpha=0.5, legend_label=f'Ideal Function {ideal_fn}')
 
-            create_plt.scatter(self.df_train['x'], self.df_train[col], size=3, color='blue', alpha=.8)
-            # Display the mapped chosen ideal functions to training functions
-            print(f'Mapped Chosen Ideal Function: {ideal_fn}')
-            print(f'Train Result : {col}')
+            create_plt.scatter(self.df_train['x'], self.df_train[col], size=3,color='blue', alpha=.8,legend_label=f'Train Function {col}')
+            create_plt.legend.location='top_left'
+            create_plt.legend.click_policy ='hide'
+
+            """
+            # Display the chosen ideal functions to training functions
+            print(f'Chosen Ideal Function: {ideal_fn}')
+            print(f'Training Function : {col}')
+            print(f'Train Results:{df_train_results}')
+            """
 
             output_file(f'Output_functions{ideal_fn + col}.html',
                         title=f'Ideal Function-{ideal_fn} Vs  Train 'f'Function-{col}')

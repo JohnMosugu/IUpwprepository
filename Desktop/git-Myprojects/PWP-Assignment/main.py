@@ -6,10 +6,13 @@ import pandas as pd
 
 
 def main():
+
     yy = TrainData()
     train_results = yy.train_model()
     xx = TestData()
-    print(f'Train Results :{(train_results.keys())}')
+    print(f'Train Results :{(train_results)}')
+    trainResults = pd.DataFrame(train_results)
+    print(trainResults)
 
     test_results = xx.test_model(train_results)
     # print(f'test Result:  {(test_results[1:3])}')

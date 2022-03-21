@@ -1,5 +1,6 @@
 import numpy as np
 from DataLoader import DataLoader
+import sys
 
 
 class TrainData:
@@ -11,8 +12,8 @@ class TrainData:
     for choosing the ideal functions for the training function.
 
     Attributes:
-        df_train (pandas.core.frame.DataFrame): Training dataset
-        df_ideal (pandas.core.frame.DataFrame): Ideal dataset
+        df_train_data (pandas.core.frame.DataFrame): Training dataset
+        df_ideal_data (pandas.core.frame.DataFrame): Ideal dataset
         df_train_results (dict): Stores 4 chosen ideal functions together with the
         Maximum deviation, minimum sum of square deviations for each training
         function.
@@ -33,7 +34,7 @@ class TrainData:
     def train_model(self):
         """
         Method used to map each training function to ideal function
-        based on minimum sum of squares deviation criteria. And it also stores
+        based on the minimum sum of squares deviation criteria. And it also stores
         the results in a dictionary object with following structure
         {'training_function': ('Ideal_function', 'Maximum_deviation',
                                 'minimum_sum_squared_deviations')}
@@ -50,7 +51,7 @@ class TrainData:
                                                   t_col].to_numpy(),
                                               self.df_ideal_data[i_col].to_numpy()))
 
-                # Calculate sum of squared deviations
+                # Calculate sum of squared deviations SSD
                 lse = np.sum(np.square(dev))
                 # Check if current sum of squared deviations minimized
                 # if true update the local parameters
